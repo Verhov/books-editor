@@ -1,4 +1,4 @@
 
 # ignore nodejs modules
 node_modules/
-src/server.js
+server.js
