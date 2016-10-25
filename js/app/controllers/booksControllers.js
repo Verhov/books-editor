@@ -22,8 +22,13 @@ booksApp.controller("BooksListController", function ($http, booksStorage) {
 });
 
 /* Details book controller */
-booksApp.controller("BooksDetailsController", function () {
-
+booksApp.controller("BooksDetailsController", function ($routeParams, booksStorage) {
+    var bookDetails = this,
+        bookId = $routeParams.bookId;
+    
+    bookDetails.book = booksStorage.getBook(bookId);
+    bookDetails.book.releaseDate = new Date(bookDetails.book.releaseDate).toDateString();
+    
 });
 
 /* Add book controller */

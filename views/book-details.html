@@ -1,0 +1,37 @@
+<div class="ui text container">
+
+	<div class="ui piled segment">
+		<div class="ui grid divided">
+
+
+			<div class="six wide column">
+				<img class="ui wireframe image" ng-src="{{bookDetails.book.image ? bookDetails.book.image : '/img/book-no-photo.png'}}">
+			</div>
+
+
+			<div class="ten wide column">
+				<div class="description"></div>
+				<h1 class="ui no-margin">{{bookDetails.book.header}}</h1>
+				<div class="meta" title="Publisher">{{bookDetails.book.publisher}}</div>
+				<div class="meta" title="Publication year">
+					<span class="date">{{bookDetails.book.publicationYear}}</span>
+				</div>
+                <div class="meta" title="Publisher">ISBN: {{bookDetails.book.ISBN}}</div>
+
+				<div class="ui horizontal list">
+                    <span class="item">Authors:</span>
+					<span class="item" ng-repeat="author in bookDetails.book.authors">{{author.name[0] + '.' + author.surname}}</span>
+				</div>
+
+                <div class="meta" title="Publisher">Release date: {{bookDetails.book.releaseDate}}</div>
+                <div class="meta" title="Publisher">Publication year: {{bookDetails.book.publicationYear}}</div>
+                <div class="meta" title="Publisher">Pages: {{bookDetails.book.pages}}</div>
+                
+			</div>
+
+
+		</div>
+	</div>
+
+	<a class="ui right floated black button" href="#/"><i class="arrow left icon"></i> Books list</a>
+</div>

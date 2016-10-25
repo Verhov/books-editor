@@ -52,6 +52,17 @@ function booksLochalStorageProvider() {
         return getBooks();
     }
 
+    // get book from localStorage
+    this.getBook = function (id) {
+        var books = getBooks();
+        for (var i = 0; i < books.length; i ++) {
+            if (books[i].id === id) {
+                return books[i];
+            }
+        }
+        return null;
+    }
+
     // add book to localStorage
     this.addBook = function (book) {
         var books = getBooks();
