@@ -25,15 +25,31 @@ booksApp.controller("BooksListController", function ($http, booksStorage) {
 booksApp.controller("BooksDetailsController", function ($routeParams, booksStorage) {
     var bookDetails = this,
         bookId = $routeParams.bookId;
-    
+
     bookDetails.book = booksStorage.getBook(bookId);
     bookDetails.book.releaseDate = new Date(bookDetails.book.releaseDate).toDateString();
-    
+
 });
 
 /* Add book controller */
-booksApp.controller("BooksAddController", function () {
+booksApp.controller("BooksAddController", function ($location, booksStorage) {
+    var bookAdd = this;
+    bookAdd.newBook = { authors: [], image: null };
+    bookAdd.newAuthor = { id: 0 };
 
+    bookAdd.addAuthor = function () {
+        bookAdd.newBook.authors.push(bookAdd.newAuthor);
+        bookAdd.newAuthor = { id: bookAdd.newAuthor.id + 1 };
+    }
+    bookAdd.remAuthor = function (author) {
+        bookAdd.newBook.authors = bookAdd.newBook.authors.filter(function (a) {
+            return a.id !== author.id;
+        });
+    }
+    bookAdd.addBook = function(){
+        booksStorage.addBook(bookAdd.newBook);
+        $location.path('/');
+    }
 });
 
 /* Update book controller */

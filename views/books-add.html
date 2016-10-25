@@ -1,0 +1,87 @@
+<div class="ui text container">
+	<div class="ui segment">
+
+		<div class="ui grid">
+			<div class="four wide column">
+				<img class="ui wireframe image" ng-src="{{bookAdd.newBook.image ? bookAdd.newBook.image : '/img/book-no-photo.png'}}">
+			</div>
+			<div class="twelve wide column">
+				<form class="ui form" name="bookForm" ng-submit="bookAdd.addBook()">
+
+
+					<div class="required field" ng-class="{error: bookForm.header.$invalid && !bookForm.header.$pristine}">
+						<label>Book header</label>
+						<input type="text" name="header" placeholder="Book header" ng-model="bookAdd.newBook.header" maxlength="30" required>
+					</div>
+
+					<div class="field">
+						<label>Publisher</label>
+						<input type="text" name="publisher" placeholder="Publisher" ng-model="bookAdd.newBook.publisher" maxlength="30">
+					</div>
+
+
+                    <div class="four fields">
+						<div class="field required" ng-class="{error: bookForm.pages.$invalid && !bookForm.pages.$pristine}">
+							<label>Pages count</label>
+							<input type="number" min="1" max="10000" name="pages" required ng-model="bookAdd.newBook.pages">
+						</div>
+						<div class="field" ng-class="{error: bookForm.publicationYear.$invalid && !bookForm.publicationYear.$pristine}">
+							<label>Publication year</label>
+							<input type="number" min="1800" name="publicationYear" ng-model="bookAdd.newBook.publicationYear">
+						</div>
+						<div class="field" ng-class="{error: bookForm.releaseDate.$invalid && !bookForm.releaseDate.$pristine}">
+							<label>Release date</label>
+							<input type="date" name="releaseDate" ng-model="bookAdd.newBook.releaseDate">
+						</div>
+						<div class="field" ng-class="{error: bookForm.ISBN.$invalid && !bookForm.ISBN.$pristine}">
+							<label>ISBN</label>
+							<input type="text" name="ISBN" ng-model="bookAdd.newBook.ISBN">
+						</div>
+					</div>
+
+
+					<h4 class="ui dividing header">Authors</h4>
+
+					<div class="three fields" ng-repeat="author in bookAdd.newBook.authors">
+						<div class="field">
+							<input type="text" ng-model="author.name" readonly="">
+						</div>
+						<div class="field">
+							<input type="text" ng-model="author.surname" readonly="">
+						</div>
+						<div class="field">
+							<button class="ui icon circular button" type="button" ng-click="bookAdd.remAuthor(author)"><i class="remove icon"></i></button>
+						</div>
+					</div>
+
+					<div class="three fields">
+						<div class="field required" ng-class="{error: bookForm.name.$invalid && !bookForm.name.$pristine}">
+							<label>First name:</label>
+							<input type="text" placeholder="First Name" name="name" ng-model="bookAdd.newAuthor.name" maxlength="20">
+						</div>
+						<div class="field required" ng-class="{error: bookForm.surname.$invalid && !bookForm.surname.$pristine}">
+							<label>Last name</label>
+							<input type="text" placeholder="Last Name" name="surname" ng-model="bookAdd.newAuthor.surname" maxlength="20">
+						</div>
+						<div class="field">
+							<label style="opacity:0">.</label>
+							<button type="button" class="ui teal button" ng-click="bookAdd.addAuthor(); bookForm.name.$pristine=true; bookForm.surname.$pristine=true;"
+								ng-disabled="(!bookAdd.newAuthor.name || bookAdd.newAuthor.name.length < 1) || (!bookAdd.newAuthor.surname || bookAdd.newAuthor.surname.length < 1)">Add author</button>
+						</div>
+						<!--add at least one author-->
+					</div>
+
+					<div class="ui negative message" ng-show="bookAdd.newBook.authors.length < 1">
+						<p>Add at least one author.</p>
+					</div>
+					
+
+					<button class="ui primary button" type="submit" ng-disabled="bookForm.$invalid || bookAdd.newBook.authors.length < 1"><i class="plus icon"></i> Add book</button>
+					<a class="ui button" href="#/">Cancel</a>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
