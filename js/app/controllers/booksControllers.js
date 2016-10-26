@@ -17,13 +17,14 @@ booksApp.controller("BooksListController", function ($http, booksStorage) {
         });
     }
 
-    // todo: remove book, sort books
+    // delete book
     booksList.delBook = function (book) {
         if (confirm('Delete "' + book.header + '"?')) {
             booksList.list = booksStorage.delBook(book.id);
         }
     }
 
+    // sorting books, save sorting
     var oldSort = booksStorage.getSort();
     booksList.sort = oldSort ? oldSort : { property: "header", reverse: false };
     booksList.sortFunc = function (property) {
@@ -44,7 +45,7 @@ booksApp.controller("BooksDetailsController", function ($routeParams, booksStora
 });
 
 /* Add book controller */
-booksApp.controller("BooksAddController", function ($location, booksStorage) {
+booksApp.controller("BooksAddController", function ($location, $scope, booksStorage) {
     var bookAdd = this;
     bookAdd.newBook = { authors: [], image: null };
     bookAdd.newAuthor = { id: 0 };
@@ -61,6 +62,25 @@ booksApp.controller("BooksAddController", function ($location, booksStorage) {
     bookAdd.addBook = function () {
         booksStorage.addBook(bookAdd.newBook);
         $location.path('/');
+    }
+
+    // set image to model and preview
+    bookAdd.imageChanged = function (event, files) {
+        
+        // MDN: https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsDataURL
+        var file = files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            bookAdd.newBook.image = reader.result;
+            $scope.$apply();
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        else {
+            bookAdd.newBook.image = null;
+        }
     }
 });
 

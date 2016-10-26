@@ -20,7 +20,7 @@
 					</div>
 
 
-                    <div class="four fields">
+					<div class="four fields">
 						<div class="field required" ng-class="{error: bookForm.pages.$invalid && !bookForm.pages.$pristine}">
 							<label>Pages count</label>
 							<input type="number" min="1" max="10000" name="pages" required ng-model="bookAdd.newBook.pages">
@@ -37,6 +37,11 @@
 							<label>ISBN</label>
 							<input type="text" name="ISBN" ng-model="bookAdd.newBook.ISBN">
 						</div>
+					</div>
+
+					<div class="field">
+						<label>Book image</label>
+						<input type="file" accept="image/jpeg,image/png" file-on-change="bookAdd.imageChanged($event, files)">
 					</div>
 
 
@@ -74,7 +79,7 @@
 					<div class="ui negative message" ng-show="bookAdd.newBook.authors.length < 1">
 						<p>Add at least one author.</p>
 					</div>
-					
+
 
 					<button class="ui primary button" type="submit" ng-disabled="bookForm.$invalid || bookAdd.newBook.authors.length < 1"><i class="plus icon"></i> Add book</button>
 					<a class="ui button" href="#/">Cancel</a>
