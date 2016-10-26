@@ -17,7 +17,8 @@ angular.module("booksApp")
  */
 function booksLochalStorageProvider() {
     var _this = this,
-        storageKey = "books";
+        storageKey = "books",
+        sortingKey = "booksSort";
 
     function toJson(obj) {
         return JSON.stringify(obj);
@@ -112,5 +113,15 @@ function booksLochalStorageProvider() {
                 callback(lsBooks);
             }
         }, false);
+    }
+
+    // get and seve user sort settings
+    this.getSort = function () {
+        var sort = toObj(localStorage.getItem(sortingKey));
+        return sort;
+    }
+
+    this.saveSort = function (sort) {
+        localStorage.setItem(sortingKey, toJson(sort));
     }
 }

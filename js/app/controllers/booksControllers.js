@@ -24,11 +24,12 @@ booksApp.controller("BooksListController", function ($http, booksStorage) {
         }
     }
 
-    booksList.sortProperty = "header";
-    booksList.sortReverse = false;
-    booksList.sortFunc = function (sortProperty) {
-        booksList.sortReverse = (booksList.sortProperty === sortProperty) ? !booksList.sortReverse : false;
-        booksList.sortProperty = sortProperty;
+    var oldSort = booksStorage.getSort();
+    booksList.sort = oldSort ? oldSort : { property: "header", reverse: false };
+    booksList.sortFunc = function (property) {
+        booksList.sort.reverse = (booksList.sort.property === property) ? !booksList.sort.reverse : false;
+        booksList.sort.property = property;
+        booksStorage.saveSort(booksList.sort);
     }
 });
 
