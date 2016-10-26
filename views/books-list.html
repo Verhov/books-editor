@@ -2,8 +2,12 @@
 <div class="ui text menu">
 
 	<div class="header item">Sort By</div>
-	<a class="item">Header <i class="dropdown icon"></i></a>
-	<a class="item">Year of publication <i class="dropdown icon"></i></a>
+	<a class="item" ng-click="booksList.sortFunc('header')">header
+		<i class="long arrow icon" ng-show="booksList.sortProperty === 'header'" ng-class="!booksList.sortReverse ? 'down':'up'"></i>
+	</a>
+	<a class="item" ng-click="booksList.sortFunc('publicationYear')">Year of publicationYear
+		<i class="long arrow icon" ng-show="booksList.sortProperty === 'publicationYear'" ng-class="booksList.sortReverse ? 'down':'up'"></i>
+	</a>
 
 	<div class="right menu">
 		<div class="item">
@@ -13,7 +17,7 @@
 </div>
 
 <div class="ui grid">
-	<div class="eight wide mobile four wide computer column" ng-repeat="book in booksList.list">
+	<div class="eight wide mobile four wide computer column" ng-repeat="book in booksList.list | orderBy : booksList.sortProperty : booksList.sortReverse">
 
 		<div class="ui card">
 			<a class="image" href="#/book-details/{{book.id}}">
@@ -29,7 +33,7 @@
 			</div>
 
 			<div class="ui two bottom attached buttons">
-				<button type="button" class="ui button"><i class="trash icon"></i> Delete</button>
+				<button type="button" class="ui button" ng-click="booksList.delBook(book)"><i class="trash icon"></i> Delete</button>
 				<button type="button" class="ui button"><i class="write icon"></i> Edit</button>
 			</div>
 		</div>

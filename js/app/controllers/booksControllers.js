@@ -18,7 +18,18 @@ booksApp.controller("BooksListController", function ($http, booksStorage) {
     }
 
     // todo: remove book, sort books
+    booksList.delBook = function (book) {
+        if (confirm('Delete "' + book.header + '"?')) {
+            booksList.list = booksStorage.delBook(book.id);
+        }
+    }
 
+    booksList.sortProperty = "header";
+    booksList.sortReverse = false;
+    booksList.sortFunc = function (sortProperty) {
+        booksList.sortReverse = (booksList.sortProperty === sortProperty) ? !booksList.sortReverse : false;
+        booksList.sortProperty = sortProperty;
+    }
 });
 
 /* Details book controller */
@@ -46,7 +57,7 @@ booksApp.controller("BooksAddController", function ($location, booksStorage) {
             return a.id !== author.id;
         });
     }
-    bookAdd.addBook = function(){
+    bookAdd.addBook = function () {
         booksStorage.addBook(bookAdd.newBook);
         $location.path('/');
     }

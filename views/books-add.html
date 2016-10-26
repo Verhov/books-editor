@@ -68,7 +68,7 @@
 							<button type="button" class="ui teal button" ng-click="bookAdd.addAuthor(); bookForm.name.$pristine=true; bookForm.surname.$pristine=true;"
 								ng-disabled="(!bookAdd.newAuthor.name || bookAdd.newAuthor.name.length < 1) || (!bookAdd.newAuthor.surname || bookAdd.newAuthor.surname.length < 1)">Add author</button>
 						</div>
-						<!--add at least one author-->
+
 					</div>
 
 					<div class="ui negative message" ng-show="bookAdd.newBook.authors.length < 1">

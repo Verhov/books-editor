@@ -101,6 +101,7 @@ function booksLochalStorageProvider() {
         });
 
         saveBooks(books);
+        return books;
     }
 
     // event: on storage updated
